@@ -10,4 +10,15 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="wallet_instructions">Pick a slot and enter how many bills to deposit, just like typing \\"1, 6\\" in the console wallet.</string>
+    <string name="quantity_hint">Number of bills to deposit</string>
+    <string name="deposit_button">Deposit</string>
+    <string name="reset_button">Reset wallet</string>
+    <string name="spinner_prompt">Wallet slot</string>
+    <string name="spinner_item_format">Slot %1$d – $%2$d bills</string>
+    <string name="total_format">Total: $%1$d</string>
+    <string name="feedback_default">Ready for your next deposit.</string>
+    <string name="feedback_success">Deposited %1$d bill(s) into slot %2$d (%3$s).</string>
+    <string name="feedback_invalid_amount">Enter a non-negative number of bills.</string>
 </resources>
