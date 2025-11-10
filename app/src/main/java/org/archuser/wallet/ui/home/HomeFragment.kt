@@ -12,6 +12,7 @@ import org.archuser.wallet.databinding.FragmentHomeBinding
 import org.archuser.wallet.databinding.ItemDenominationEntryBinding
 import org.archuser.wallet.ui.shared.WalletViewModel
 import org.archuser.wallet.ui.shared.WalletViewModelFactory
+import java.text.NumberFormat
 
 class HomeFragment : Fragment() {
 
@@ -24,6 +25,7 @@ class HomeFragment : Fragment() {
     }
     private val denominations get() = WalletViewModel.DENOMINATIONS
     private val denominationRows = mutableListOf<ItemDenominationEntryBinding>()
+    private val currencyFormatter by lazy { NumberFormat.getCurrencyInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,15 +54,15 @@ class HomeFragment : Fragment() {
         denominations.forEachIndexed { index, denomination ->
             val rowBinding = ItemDenominationEntryBinding.inflate(inflater, binding.denominationList, false)
             rowBinding.denominationLabel.text = getString(R.string.denomination_label_format, denomination)
-            rowBinding.denominationValue.text = getString(R.string.denomination_value_format, 0)
+            rowBinding.denominationValue.text = getString(R.string.denomination_value_format, formatCurrency(0))
+            rowBinding.denominationCount.text = resources.getQuantityString(R.plurals.denomination_count, 0, 0)
+            rowBinding.denominationRemoveButton.isEnabled = false
             rowBinding.denominationAddButton.setOnClickListener {
                 val quantityChanged = 1
                 walletViewModel.increment(index, quantityChanged)
                 binding.feedbackMessage.text = getString(
                     R.string.feedback_add_success,
-                    quantityChanged,
-                    index + 1,
-                    denominationDescription(denomination, quantityChanged)
+                    formatQuantityWithDenomination(quantityChanged, denomination)
                 )
             }
             rowBinding.denominationRemoveButton.setOnClickListener {
@@ -68,15 +70,10 @@ class HomeFragment : Fragment() {
                 if (walletViewModel.decrement(index, quantityChanged)) {
                     binding.feedbackMessage.text = getString(
                         R.string.feedback_remove_success,
-                        quantityChanged,
-                        index + 1,
-                        denominationDescription(denomination, quantityChanged)
+                        formatQuantityWithDenomination(quantityChanged, denomination)
                     )
                 } else {
-                    binding.feedbackMessage.text = getString(
-                        R.string.feedback_remove_empty,
-                        index + 1
-                    )
+                    binding.feedbackMessage.text = getString(R.string.feedback_remove_empty, denomination)
                 }
             }
             binding.denominationList.addView(rowBinding.root)
@@ -93,21 +90,24 @@ class HomeFragment : Fragment() {
 
     private fun updateDisplay(counts: List<Int>) {
         val total = counts.zip(denominations) { count, denomination -> count * denomination }.sum()
-        binding.totalAmount.text = getString(R.string.total_format, total)
+        val totalBills = counts.sum()
+        binding.totalAmount.text = formatCurrency(total)
+        binding.totalBills.text = resources.getQuantityString(R.plurals.wallet_summary_bills, totalBills, totalBills)
 
         denominationRows.forEachIndexed { index, row ->
             val totalValue = counts[index] * denominations[index]
-            row.denominationValue.text = getString(R.string.denomination_value_format, totalValue)
+            row.denominationValue.text = getString(R.string.denomination_value_format, formatCurrency(totalValue))
+            row.denominationCount.text = resources.getQuantityString(R.plurals.denomination_count, counts[index], counts[index])
+            row.denominationRemoveButton.isEnabled = counts[index] > 0
         }
     }
 
-    private fun denominationDescription(denomination: Int, quantity: Int): String {
-        val descriptionRes = if (quantity == 1) {
-            R.string.denomination_description_single
-        } else {
-            R.string.denomination_description_plural
-        }
-        return getString(descriptionRes, denomination)
+    private fun formatCurrency(amount: Int): String {
+        return currencyFormatter.format(amount.toLong())
+    }
+
+    private fun formatQuantityWithDenomination(quantity: Int, denomination: Int): String {
+        return getString(R.string.quantity_with_denomination, quantity, denomination)
     }
 
     override fun onDestroyView() {
