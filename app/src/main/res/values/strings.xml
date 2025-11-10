@@ -11,11 +11,12 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
-    <string name="wallet_instructions">Tap the plus next to a slot to add one bill, just like typing \\1 in the console wallet.</string>
     <string name="reset_button">Reset wallet</string>
     <string name="total_format">Total: $%1$d</string>
-    <string name="feedback_default">Tap + to add bills.</string>
-    <string name="feedback_success">Added %1$d bill(s) to slot %2$d (%3$s).</string>
+    <string name="feedback_default">Tap + or − to adjust bills.</string>
+    <string name="feedback_add_success">Added %1$d bill(s) to slot %2$d (%3$s).</string>
+    <string name="feedback_remove_success">Removed %1$d bill(s) from slot %2$d (%3$s).</string>
+    <string name="feedback_remove_empty">No bills to remove from slot %1$d.</string>
     <string name="denomination_label_format">- $%1$d:</string>
     <string name="denomination_value_format">$%1$d</string>
     <string name="denomination_description_single">$%1$d bill</string>

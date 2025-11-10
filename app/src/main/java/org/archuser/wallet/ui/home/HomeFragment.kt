@@ -41,14 +41,32 @@ class HomeFragment : Fragment() {
             rowBinding.denominationValue.text = getString(R.string.denomination_value_format, 0)
             rowBinding.denominationAddButton.setOnClickListener {
                 counts[index] += 1
-                val quantityAdded = 1
+                val quantityChanged = 1
                 binding.feedbackMessage.text = getString(
-                    R.string.feedback_success,
-                    quantityAdded,
+                    R.string.feedback_add_success,
+                    quantityChanged,
                     index + 1,
-                    denominationDescription(denomination, quantityAdded)
+                    denominationDescription(denomination, quantityChanged)
                 )
                 updateDisplay()
+            }
+            rowBinding.denominationRemoveButton.setOnClickListener {
+                if (counts[index] > 0) {
+                    counts[index] -= 1
+                    val quantityChanged = 1
+                    binding.feedbackMessage.text = getString(
+                        R.string.feedback_remove_success,
+                        quantityChanged,
+                        index + 1,
+                        denominationDescription(denomination, quantityChanged)
+                    )
+                    updateDisplay()
+                } else {
+                    binding.feedbackMessage.text = getString(
+                        R.string.feedback_remove_empty,
+                        index + 1
+                    )
+                }
             }
             binding.denominationList.addView(rowBinding.root)
             denominationRows.add(rowBinding)

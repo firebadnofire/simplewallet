@@ -24,6 +24,15 @@
         android:text="$0" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/denominationRemoveButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:minWidth="48dp"
+        android:text="-" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/denominationAddButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
