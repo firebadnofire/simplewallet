@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import org.archuser.wallet.R
 import org.archuser.wallet.databinding.FragmentHomeBinding
 import org.archuser.wallet.databinding.ItemDenominationEntryBinding
+import org.archuser.wallet.ui.shared.WalletViewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val denominations = listOf(1, 5, 10, 20, 50, 100)
-    private val counts = MutableList(denominations.size) { 0 }
+    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val denominations get() = WalletViewModel.DENOMINATIONS
     private val denominationRows = mutableListOf<ItemDenominationEntryBinding>()
 
     override fun onCreateView(
@@ -26,9 +28,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupDenominationRows(inflater)
         setupResetButton()
-        updateDisplay()
         binding.feedbackMessage.text = getString(R.string.feedback_default)
+        walletViewModel.counts.value?.let { updateDisplay(it) }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        walletViewModel.counts.observe(viewLifecycleOwner) { counts ->
+            updateDisplay(counts)
+        }
     }
 
     private fun setupDenominationRows(inflater: LayoutInflater) {
@@ -40,27 +49,24 @@ class HomeFragment : Fragment() {
             rowBinding.denominationLabel.text = getString(R.string.denomination_label_format, denomination)
             rowBinding.denominationValue.text = getString(R.string.denomination_value_format, 0)
             rowBinding.denominationAddButton.setOnClickListener {
-                counts[index] += 1
                 val quantityChanged = 1
+                walletViewModel.increment(index, quantityChanged)
                 binding.feedbackMessage.text = getString(
                     R.string.feedback_add_success,
                     quantityChanged,
                     index + 1,
                     denominationDescription(denomination, quantityChanged)
                 )
-                updateDisplay()
             }
             rowBinding.denominationRemoveButton.setOnClickListener {
-                if (counts[index] > 0) {
-                    counts[index] -= 1
-                    val quantityChanged = 1
+                val quantityChanged = 1
+                if (walletViewModel.decrement(index, quantityChanged)) {
                     binding.feedbackMessage.text = getString(
                         R.string.feedback_remove_success,
                         quantityChanged,
                         index + 1,
                         denominationDescription(denomination, quantityChanged)
                     )
-                    updateDisplay()
                 } else {
                     binding.feedbackMessage.text = getString(
                         R.string.feedback_remove_empty,
@@ -75,33 +81,12 @@ class HomeFragment : Fragment() {
 
     private fun setupResetButton() {
         binding.resetButton.setOnClickListener {
-            for (index in counts.indices) {
-                counts[index] = 0
-            }
             binding.feedbackMessage.text = getString(R.string.feedback_default)
-            updateDisplay()
+            walletViewModel.reset()
         }
     }
 
-    private fun updateDisplay() {
-        val slotRow = buildString {
-            append("|")
-            for (index in denominations.indices) {
-                append("   ${index + 1}   |")
-            }
-        }
-        val denominationRow = denominations.joinToString(separator = "") { "[${it}s]" }
-        val amountsRow = buildString {
-            append("(")
-            append(
-                counts.zip(denominations) { count, denomination ->
-                    "$$${count * denomination}"
-                }.joinToString(")(")
-            )
-            append(")")
-        }
-        binding.walletDisplay.text = listOf(slotRow, denominationRow, amountsRow).joinToString("\n")
-
+    private fun updateDisplay(counts: List<Int>) {
         val total = counts.zip(denominations) { count, denomination -> count * denomination }.sum()
         binding.totalAmount.text = getString(R.string.total_format, total)
 

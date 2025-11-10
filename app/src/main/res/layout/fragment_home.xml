@@ -22,19 +22,10 @@
             android:padding="24dp">
 
             <TextView
-                android:id="@+id/walletDisplay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                tools:text="|   1   |   2   |   3   |   4   |   5   |   6   |&#10;[1s][5s][10s][20s][50s][100s]&#10;($0)($0)($0)($0)($0)($0)" />
-
-            <TextView
                 android:id="@+id/totalAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 tools:text="Total: $0" />
