@@ -12,15 +12,16 @@
     <string name="menu_export">Export wallet</string>
 
     <string name="reset_button">Reset wallet</string>
-    <string name="total_format">Total: $%1$d</string>
-    <string name="feedback_default">Tap + or − to adjust bills.</string>
-    <string name="feedback_add_success">Added %1$d bill(s) to slot %2$d (%3$s).</string>
-    <string name="feedback_remove_success">Removed %1$d bill(s) from slot %2$d (%3$s).</string>
-    <string name="feedback_remove_empty">No bills to remove from slot %1$d.</string>
-    <string name="denomination_label_format">- $%1$d:</string>
-    <string name="denomination_value_format">$%1$d</string>
-    <string name="denomination_description_single">$%1$d bill</string>
-    <string name="denomination_description_plural">$%1$d bills</string>
+    <string name="wallet_summary_title">Wallet snapshot</string>
+    <string name="wallet_summary_balance_label">Current balance</string>
+    <string name="feedback_default">Track your cash by using the + and − buttons.</string>
+    <string name="feedback_add_success">Added %1$s to your wallet.</string>
+    <string name="feedback_remove_success">Removed %1$s from your wallet.</string>
+    <string name="feedback_remove_empty">No $%1$d bills left to remove.</string>
+    <string name="denomination_section_title">Denomination breakdown</string>
+    <string name="denomination_label_format">$%1$d bills</string>
+    <string name="denomination_value_format">Value: %1$s</string>
+    <string name="quantity_with_denomination">%1$d × $%2$d</string>
     <string name="import_instructions">Paste wallet JSON exported from the CLI or another device.</string>
     <string name="import_input_hint">Wallet JSON (e.g. {&quot;1&quot;:2,&quot;5&quot;:0,&quot;10&quot;:1})</string>
     <string name="import_button">Import wallet</string>
@@ -34,4 +35,12 @@
     <string name="export_hint">Anyone can import this JSON through the Import screen.</string>
     <string name="export_clipboard_label">Wallet export</string>
     <string name="export_copied">Wallet copied to clipboard.</string>
+    <plurals name="wallet_summary_bills">
+        <item quantity="one">%d bill</item>
+        <item quantity="other">%d bills</item>
+    </plurals>
+    <plurals name="denomination_count">
+        <item quantity="one">%d bill stored</item>
+        <item quantity="other">%d bills stored</item>
+    </plurals>
 </resources>
