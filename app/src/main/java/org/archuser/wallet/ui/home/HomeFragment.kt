@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import org.archuser.wallet.R
 import org.archuser.wallet.databinding.FragmentHomeBinding
+import org.archuser.wallet.databinding.ItemDenominationEntryBinding
 
 class HomeFragment : Fragment() {
 
@@ -16,6 +16,7 @@ class HomeFragment : Fragment() {
 
     private val denominations = listOf(1, 5, 10, 20, 50, 100)
     private val counts = MutableList(denominations.size) { 0 }
+    private val denominationRows = mutableListOf<ItemDenominationEntryBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,49 +24,38 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setupSpinner()
-        setupButtons()
+        setupDenominationRows(inflater)
+        setupResetButton()
         updateDisplay()
         binding.feedbackMessage.text = getString(R.string.feedback_default)
         return binding.root
     }
 
-    private fun setupSpinner() {
-        val spinnerItems = denominations.mapIndexed { index, value ->
-            getString(R.string.spinner_item_format, index + 1, value)
+    private fun setupDenominationRows(inflater: LayoutInflater) {
+        denominationRows.clear()
+        binding.denominationList.removeAllViews()
+
+        denominations.forEachIndexed { index, denomination ->
+            val rowBinding = ItemDenominationEntryBinding.inflate(inflater, binding.denominationList, false)
+            rowBinding.denominationLabel.text = getString(R.string.denomination_label_format, denomination)
+            rowBinding.denominationValue.text = getString(R.string.denomination_value_format, 0)
+            rowBinding.denominationAddButton.setOnClickListener {
+                counts[index] += 1
+                val quantityAdded = 1
+                binding.feedbackMessage.text = getString(
+                    R.string.feedback_success,
+                    quantityAdded,
+                    index + 1,
+                    denominationDescription(denomination, quantityAdded)
+                )
+                updateDisplay()
+            }
+            binding.denominationList.addView(rowBinding.root)
+            denominationRows.add(rowBinding)
         }
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            spinnerItems
-        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
-        binding.denominationSpinner.adapter = adapter
-        binding.denominationSpinner.prompt = getString(R.string.spinner_prompt)
     }
 
-    private fun setupButtons() {
-        binding.depositButton.setOnClickListener {
-            val selectedPosition = binding.denominationSpinner.selectedItemPosition
-            val amountText = binding.quantityInput.text?.toString()?.trim()
-            val quantity = amountText?.toIntOrNull()
-
-            if (quantity == null || quantity < 0) {
-                binding.feedbackMessage.text = getString(R.string.feedback_invalid_amount)
-                return@setOnClickListener
-            }
-
-            counts[selectedPosition] += quantity
-            val denominationLabel = "${denominations[selectedPosition]}s"
-            binding.feedbackMessage.text = getString(
-                R.string.feedback_success,
-                quantity,
-                selectedPosition + 1,
-                denominationLabel
-            )
-            binding.quantityInput.text?.clear()
-            updateDisplay()
-        }
-
+    private fun setupResetButton() {
         binding.resetButton.setOnClickListener {
             for (index in counts.indices) {
                 counts[index] = 0
@@ -96,6 +86,20 @@ class HomeFragment : Fragment() {
 
         val total = counts.zip(denominations) { count, denomination -> count * denomination }.sum()
         binding.totalAmount.text = getString(R.string.total_format, total)
+
+        denominationRows.forEachIndexed { index, row ->
+            val totalValue = counts[index] * denominations[index]
+            row.denominationValue.text = getString(R.string.denomination_value_format, totalValue)
+        }
+    }
+
+    private fun denominationDescription(denomination: Int, quantity: Int): String {
+        val descriptionRes = if (quantity == 1) {
+            R.string.denomination_description_single
+        } else {
+            R.string.denomination_description_plural
+        }
+        return getString(descriptionRes, denomination)
     }
 
     override fun onDestroyView() {

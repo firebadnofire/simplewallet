@@ -11,14 +11,13 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
-    <string name="wallet_instructions">Pick a slot and enter how many bills to deposit, just like typing \\"1, 6\\" in the console wallet.</string>
-    <string name="quantity_hint">Number of bills to deposit</string>
-    <string name="deposit_button">Deposit</string>
+    <string name="wallet_instructions">Tap the plus next to a slot to add one bill, just like typing \\1 in the console wallet.</string>
     <string name="reset_button">Reset wallet</string>
-    <string name="spinner_prompt">Wallet slot</string>
-    <string name="spinner_item_format">Slot %1$d – $%2$d bills</string>
     <string name="total_format">Total: $%1$d</string>
-    <string name="feedback_default">Ready for your next deposit.</string>
-    <string name="feedback_success">Deposited %1$d bill(s) into slot %2$d (%3$s).</string>
-    <string name="feedback_invalid_amount">Enter a non-negative number of bills.</string>
+    <string name="feedback_default">Tap + to add bills.</string>
+    <string name="feedback_success">Added %1$d bill(s) to slot %2$d (%3$s).</string>
+    <string name="denomination_label_format">- $%1$d:</string>
+    <string name="denomination_value_format">$%1$d</string>
+    <string name="denomination_description_single">$%1$d bill</string>
+    <string name="denomination_description_plural">$%1$d bills</string>
 </resources>
