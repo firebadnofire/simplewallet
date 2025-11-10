@@ -8,6 +8,30 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_import">Import wallet</string>
+    <string name="menu_export">Export wallet</string>
+
+    <string name="reset_button">Reset wallet</string>
+    <string name="total_format">Total: $%1$d</string>
+    <string name="feedback_default">Tap + or − to adjust bills.</string>
+    <string name="feedback_add_success">Added %1$d bill(s) to slot %2$d (%3$s).</string>
+    <string name="feedback_remove_success">Removed %1$d bill(s) from slot %2$d (%3$s).</string>
+    <string name="feedback_remove_empty">No bills to remove from slot %1$d.</string>
+    <string name="denomination_label_format">- $%1$d:</string>
+    <string name="denomination_value_format">$%1$d</string>
+    <string name="denomination_description_single">$%1$d bill</string>
+    <string name="denomination_description_plural">$%1$d bills</string>
+    <string name="import_instructions">Paste wallet JSON exported from the CLI or another device.</string>
+    <string name="import_input_hint">Wallet JSON (e.g. {&quot;1&quot;:2,&quot;5&quot;:0,&quot;10&quot;:1})</string>
+    <string name="import_button">Import wallet</string>
+    <string name="import_error_empty">Provide wallet data to import.</string>
+    <string name="import_error_invalid">Invalid wallet data. Check the format and try again.</string>
+    <string name="import_success">Wallet imported. Total: $%1$d</string>
+    <string name="import_format_label">Expected JSON format (denomination to bill count):</string>
+    <string name="export_instructions">Share your current wallet as JSON for backup or transfer.</string>
+    <string name="export_copy_button">Copy JSON</string>
+    <string name="export_total">Total value: $%1$d</string>
+    <string name="export_hint">Anyone can import this JSON through the Import screen.</string>
+    <string name="export_clipboard_label">Wallet export</string>
+    <string name="export_copied">Wallet copied to clipboard.</string>
 </resources>

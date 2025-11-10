@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="org.archuser.wallet.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_import"
+        android:name="org.archuser.wallet.ui.transfer.ImportFragment"
+        android:label="@string/menu_import"
+        tools:layout="@layout/fragment_import" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="org.archuser.wallet.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_export"
+        android:name="org.archuser.wallet.ui.transfer.ExportFragment"
+        android:label="@string/menu_export"
+        tools:layout="@layout/fragment_export" />
 </navigation>
