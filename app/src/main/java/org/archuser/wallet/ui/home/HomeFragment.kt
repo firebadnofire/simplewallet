@@ -6,17 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import org.archuser.wallet.WalletApplication
 import org.archuser.wallet.R
 import org.archuser.wallet.databinding.FragmentHomeBinding
 import org.archuser.wallet.databinding.ItemDenominationEntryBinding
 import org.archuser.wallet.ui.shared.WalletViewModel
+import org.archuser.wallet.ui.shared.WalletViewModelFactory
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels {
+        val application = requireActivity().application as WalletApplication
+        WalletViewModelFactory(application.walletRepository)
+    }
     private val denominations get() = WalletViewModel.DENOMINATIONS
     private val denominationRows = mutableListOf<ItemDenominationEntryBinding>()
 

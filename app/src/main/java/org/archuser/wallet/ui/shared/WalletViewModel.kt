@@ -3,38 +3,43 @@ package org.archuser.wallet.ui.shared
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import org.archuser.wallet.data.WalletConfig
+import org.archuser.wallet.data.WalletRepository
 import org.json.JSONException
 import org.json.JSONObject
 
-class WalletViewModel : ViewModel() {
+class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
 
     companion object {
-        val DENOMINATIONS = listOf(1, 5, 10, 20, 50, 100)
+        val DENOMINATIONS = WalletConfig.DENOMINATIONS
     }
 
-    private val _counts = MutableLiveData(List(DENOMINATIONS.size) { 0 })
+    private val _counts = MutableLiveData(repository.loadCounts())
     val counts: LiveData<List<Int>> = _counts
 
     fun increment(index: Int, quantity: Int = 1) {
         if (index !in DENOMINATIONS.indices || quantity <= 0) return
-        val updated = (_counts.value ?: List(DENOMINATIONS.size) { 0 }).toMutableList()
+        val updated = currentCounts().toMutableList()
         updated[index] += quantity
-        _counts.value = updated
+        updateCounts(updated)
     }
 
     fun decrement(index: Int, quantity: Int = 1): Boolean {
         if (index !in DENOMINATIONS.indices || quantity <= 0) return false
-        val current = (_counts.value ?: List(DENOMINATIONS.size) { 0 }).toMutableList()
+        val current = currentCounts().toMutableList()
         if (current[index] < quantity) {
             return false
         }
         current[index] -= quantity
-        _counts.value = current
+        updateCounts(current)
         return true
     }
 
     fun reset() {
-        _counts.value = List(DENOMINATIONS.size) { 0 }
+        val empty = List(DENOMINATIONS.size) { 0 }
+        updateCounts(empty)
+        repository.clear()
     }
 
     fun importData(raw: String): Boolean {
@@ -51,7 +56,7 @@ class WalletViewModel : ViewModel() {
                 }
                 newCounts += count
             }
-            _counts.value = newCounts
+            updateCounts(newCounts)
             true
         } catch (error: JSONException) {
             false
@@ -60,7 +65,7 @@ class WalletViewModel : ViewModel() {
 
     fun exportData(): String {
         val json = JSONObject()
-        val current = _counts.value ?: List(DENOMINATIONS.size) { 0 }
+        val current = currentCounts()
         DENOMINATIONS.forEachIndexed { index, denomination ->
             json.put(denomination.toString(), current[index])
         }
@@ -68,7 +73,26 @@ class WalletViewModel : ViewModel() {
     }
 
     fun totalAmount(counts: List<Int>? = null): Int {
-        val values = counts ?: (_counts.value ?: List(DENOMINATIONS.size) { 0 })
+        val values = counts ?: currentCounts()
         return values.zip(DENOMINATIONS) { count, denomination -> count * denomination }.sum()
+    }
+
+    private fun updateCounts(newCounts: List<Int>) {
+        _counts.value = newCounts
+        repository.saveCounts(newCounts)
+    }
+
+    private fun currentCounts(): List<Int> {
+        return _counts.value ?: repository.loadCounts()
+    }
+}
+
+class WalletViewModelFactory(private val repository: WalletRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(WalletViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return WalletViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
