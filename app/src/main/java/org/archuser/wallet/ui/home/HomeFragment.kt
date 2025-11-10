@@ -107,6 +107,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        denominationRows.clear()
         _binding = null
     }
 }

@@ -36,7 +36,7 @@
             android:fontFamily="monospace"
             android:padding="12dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            tools:text="{\"1\":0,\"5\":1,\"10\":0,\"20\":0,\"50\":0,\"100\":3}" />
+            tools:text="{&quot;1&quot;:0,&quot;5&quot;:1,&quot;10&quot;:0,&quot;20&quot;:0,&quot;50&quot;:0,&quot;100&quot;:3}" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/copyExportButton"
