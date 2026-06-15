@@ -68,6 +68,16 @@ GITHUB_RELEASE_OWNER
 GITHUB_RELEASE_REPO
 ```
 
+The default GitHub mirror target is:
+
+```text
+firebadnofire/simplewallet
+```
+
+If `GH_KEY` exists as a global upstream secret, the workflow publishes there by
+default. Set `GITHUB_RELEASE_OWNER` and `GITHUB_RELEASE_REPO` only to override
+that target.
+
 Generate `KEYSTORE_BASE64` from the keystore file with:
 
 ```bash

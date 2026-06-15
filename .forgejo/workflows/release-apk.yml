@@ -19,6 +19,9 @@ jobs:
         run: |
           set -euo pipefail
 
+          default_github_release_owner="firebadnofire"
+          default_github_release_repo="simplewallet"
+
           apt_get="apt-get"
           tee_cmd="tee"
           install_cmd="install"
@@ -104,11 +107,9 @@ jobs:
           fi
 
           if [ -n "${GH_KEY:-}" ]; then
-            if [ -z "${GITHUB_RELEASE_OWNER:-}" ] || [ -z "${GITHUB_RELEASE_REPO:-}" ]; then
-              echo "GITHUB_RELEASE_OWNER and GITHUB_RELEASE_REPO must both be set when GH_KEY enables GitHub release publishing." >&2
-              exit 1
-            fi
-            echo "GitHub release publishing enabled for ${GITHUB_RELEASE_OWNER}/${GITHUB_RELEASE_REPO}."
+            github_owner="${GITHUB_RELEASE_OWNER:-$default_github_release_owner}"
+            github_repo="${GITHUB_RELEASE_REPO:-$default_github_release_repo}"
+            echo "GitHub release publishing enabled for ${github_owner}/${github_repo}."
           elif [ -n "${GITHUB_RELEASE_OWNER:-}" ] || [ -n "${GITHUB_RELEASE_REPO:-}" ]; then
             echo "GH_KEY must be set when configuring GitHub release publishing." >&2
             exit 1
@@ -262,8 +263,8 @@ jobs:
 
           api_url="https://api.github.com"
           upload_url="https://uploads.github.com"
-          owner="${GITHUB_RELEASE_OWNER:?Missing GitHub release owner}"
-          repo="${GITHUB_RELEASE_REPO:?Missing GitHub release repo}"
+          owner="${GITHUB_RELEASE_OWNER:-firebadnofire}"
+          repo="${GITHUB_RELEASE_REPO:-simplewallet}"
           tag="${FORGEJO_REF_NAME:-${GITHUB_REF_NAME:?Missing tag ref name}}"
           token="${GH_KEY:?Missing GitHub token}"
           asset_path="dist/simplewallet-${tag}.apk"

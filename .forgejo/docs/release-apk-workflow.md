@@ -51,7 +51,9 @@ Optional GitHub mirroring requires:
 | `GITHUB_RELEASE_OWNER` | GitHub owner or organization |
 | `GITHUB_RELEASE_REPO` | GitHub repository name |
 
-If `GH_KEY` is set, both GitHub repository variables must also be set.
+If `GH_KEY` is present, the workflow publishes to the default GitHub mirror
+`firebadnofire/simplewallet`. Set `GITHUB_RELEASE_OWNER` and
+`GITHUB_RELEASE_REPO` only when overriding that default target.
 
 ## Android Signing
 
@@ -97,7 +99,9 @@ dist/simplewallet-${TAG}.apk
 Forgejo publishing is always active for matching tags.
 
 GitHub publishing is optional. If `GH_KEY` is missing, the workflow prints a
-skip message and does not publish to GitHub.
+skip message and does not publish to GitHub. If `GH_KEY` is present, the
+workflow publishes to `firebadnofire/simplewallet` by default unless the owner
+and repo variables override that target.
 
 Both publish steps are idempotent for the same tag:
 
