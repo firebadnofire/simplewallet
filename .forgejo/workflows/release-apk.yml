@@ -89,6 +89,9 @@ jobs:
         run: |
           set -euo pipefail
 
+          default_github_release_owner="firebadnofire"
+          default_github_release_repo="simplewallet"
+
           for name in KEY_ALIAS KEY_PASSWORD KEYSTORE_BASE64 KEYSTORE_PASSWORD; do
             if [ -z "${!name:-}" ]; then
               echo "Missing required secret: ${name}" >&2
