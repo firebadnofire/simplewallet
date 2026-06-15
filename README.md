@@ -1,14 +1,14 @@
 # Simple Wallet
 
-Simple Wallet is an Android app for manually tracking the cash in your real wallet.
+Simple Wallet is an Android app for manually tracking the cash you carry.
 
-For the bills 1, 5, 10, 20, 50, 100, you may add them to your digital wallet. The app remembers individual bill counts and totals.
+Instead of recounting your bills every time, you can update the app as cash comes and goes. It tracks counts for `$1`, `$5`, `$10`, `$20`, `$50`, and `$100` bills and keeps the total for each wallet up to date.
 
 ## Features
 
-- Multiple wallets with quick switching from the left drawer
-- Manual bill tracking for each wallet
-- JSON import and export for all wallets through the Android file picker
+- Support for multiple wallets with quick switching from the left drawer
+- Simple manual bill tracking for each wallet
+- File-based JSON import and export for all wallets through the Android document picker
 
 <p>
   <a href="https://archuser.org/simplewallet.apk">
