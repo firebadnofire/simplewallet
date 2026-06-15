@@ -19,22 +19,6 @@
             android:text="@string/import_instructions"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/import_input_hint">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/importInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top|start"
-                android:inputType="textMultiLine"
-                android:maxLines="6"
-                android:minLines="3" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/importButton"
             android:layout_width="match_parent"
@@ -47,15 +31,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            tools:text="Wallet updated: Total $150" />
+            android:text="@string/import_status_idle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
-            android:id="@+id/importFormatLabel"
+            android:id="@+id/importPreviewLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/import_format_label"
+            android:text="@string/import_preview_label"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
@@ -67,6 +51,6 @@
             android:fontFamily="monospace"
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            tools:text="{&quot;1&quot;:2,&quot;5&quot;:0,&quot;10&quot;:1,&quot;20&quot;:0,&quot;50&quot;:0,&quot;100&quot;:0}" />
+            tools:text="{&quot;version&quot;:1,&quot;selectedWalletId&quot;:&quot;wallet-main&quot;,&quot;wallets&quot;:[{&quot;id&quot;:&quot;wallet-main&quot;,&quot;name&quot;:&quot;Main wallet&quot;,&quot;counts&quot;:[0,0,0,0,0,0]}]}" />
     </LinearLayout>
 </ScrollView>

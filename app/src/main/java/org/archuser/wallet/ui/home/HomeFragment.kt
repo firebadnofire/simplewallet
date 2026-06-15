@@ -45,6 +45,9 @@ class HomeFragment : Fragment() {
         walletViewModel.counts.observe(viewLifecycleOwner) { counts ->
             updateDisplay(counts)
         }
+        walletViewModel.selectedWalletName.observe(viewLifecycleOwner) { walletName ->
+            binding.walletSummaryTitle.text = getString(R.string.wallet_summary_title_format, walletName)
+        }
     }
 
     private fun setupDenominationRows(inflater: LayoutInflater) {

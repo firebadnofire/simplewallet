@@ -20,12 +20,42 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
-            android:id="@+id/exportSummary"
+            android:id="@+id/exportWalletCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            tools:text="Total value: $320" />
+            tools:text="3 wallets included" />
+
+        <TextView
+            android:id="@+id/exportSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            tools:text="Combined cash across wallets: $320" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveExportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/export_save_button" />
+
+        <TextView
+            android:id="@+id/exportStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+        <TextView
+            android:id="@+id/exportPreviewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/export_preview_label"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
             android:id="@+id/exportData"
@@ -36,14 +66,7 @@
             android:fontFamily="monospace"
             android:padding="12dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            tools:text="{&quot;1&quot;:0,&quot;5&quot;:1,&quot;10&quot;:0,&quot;20&quot;:0,&quot;50&quot;:0,&quot;100&quot;:3}" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/copyExportButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/export_copy_button" />
+            tools:text="{&quot;version&quot;:1,&quot;selectedWalletId&quot;:&quot;wallet-main&quot;,&quot;wallets&quot;:[{&quot;id&quot;:&quot;wallet-main&quot;,&quot;name&quot;:&quot;Main wallet&quot;,&quot;counts&quot;:[0,1,0,0,0,3]}]}" />
 
         <TextView
             android:id="@+id/exportHint"
