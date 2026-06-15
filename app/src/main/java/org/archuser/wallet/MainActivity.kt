@@ -92,12 +92,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun rebuildWalletMenu(wallets: List<WalletRecord>) {
         val menu = binding.navView.menu
-        val walletGroup = menu.findItem(R.id.nav_home)?.groupId ?: R.id.group_wallets
+        val walletGroup = R.id.group_wallets
 
-        val homeItem = menu.findItem(R.id.nav_home)
-        if (homeItem != null) {
-            menu.removeItem(R.id.nav_home)
-        }
+        menu.removeGroup(walletGroup)
 
         walletMenuIds.clear()
         wallets.forEachIndexed { index, wallet ->
