@@ -36,6 +36,7 @@
     <string name="transfer_feedback_remove_empty">No $%1$d bills are selected for transfer.</string>
     <string name="transfer_feedback_insufficient">No more $%1$d bills are available in %2$s.</string>
     <string name="transfer_feedback_same_wallet">Choose two different wallets.</string>
+    <string name="transfer_feedback_swapped">Swapped the source and destination wallets.</string>
     <string name="transfer_feedback_empty_selection">Select at least one bill to transfer.</string>
     <string name="transfer_feedback_unknown_wallet">One of the wallets could not be found. Refresh the page and try again.</string>
     <string name="transfer_feedback_success">Transferred %1$d bills worth %2$s from %3$s to %4$s.</string>
@@ -43,6 +44,8 @@
     <string name="transfer_denomination_value_format">Transfer value: %1$s</string>
     <string name="transfer_denomination_count_format">Selected: %1$d / Available: %2$d</string>
     <string name="transfer_denomination_section_title">Choose bills to move</string>
+    <string name="transfer_swap_content_description">Swap source and destination wallets</string>
+    <string name="transfer_swap_symbol">⇄</string>
     <string name="import_instructions">Import a JSON backup file to replace every wallet in the app.</string>
     <string name="import_button">Choose JSON file</string>
     <string name="import_error_invalid">Invalid wallet backup. Check the JSON file and try again.</string>

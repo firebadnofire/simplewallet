@@ -42,6 +42,7 @@ class TransferFundsFragment : Fragment() {
         _binding = FragmentTransferFundsBinding.inflate(inflater, container, false)
         feedbackMessage = getString(R.string.transfer_feedback_default)
         setupWalletPickers()
+        setupSwapButton()
         setupDenominationRows(inflater)
         setupTransferButton()
         updateTransferDisplay()
@@ -104,6 +105,12 @@ class TransferFundsFragment : Fragment() {
     private fun setupTransferButton() {
         binding.transferButton.setOnClickListener {
             commitTransfer()
+        }
+    }
+
+    private fun setupSwapButton() {
+        binding.swapWalletsCard.setOnClickListener {
+            swapWallets()
         }
     }
 
@@ -216,6 +223,16 @@ class TransferFundsFragment : Fragment() {
         }.toMutableList()
     }
 
+    private fun swapWallets() {
+        val sourceId = fromWalletId ?: return
+        val destinationId = toWalletId ?: return
+        fromWalletId = destinationId
+        toWalletId = sourceId
+        clampTransferCountsToSource()
+        feedbackMessage = getString(R.string.transfer_feedback_swapped)
+        updateTransferDisplay()
+    }
+
     private fun updateTransferDisplay() {
         val sourceWallet = sourceWallet()
         val receivingWallet = destinationWallet()
@@ -243,6 +260,8 @@ class TransferFundsFragment : Fragment() {
         binding.transferFeedbackMessage.text = feedbackMessage
         binding.fromWalletDropdown.isEnabled = wallets.size >= 2
         binding.toWalletDropdown.isEnabled = wallets.size >= 2
+        binding.swapWalletsCard.isEnabled = wallets.size >= 2
+        binding.swapWalletsCard.alpha = if (wallets.size >= 2) 1f else 0.5f
         binding.transferButton.isEnabled = wallets.size >= 2 && selectedBills > 0
 
         val sourceCounts = sourceWallet?.counts ?: List(denominations.size) { 0 }
