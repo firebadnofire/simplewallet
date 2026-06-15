@@ -23,5 +23,9 @@
             android:id="@+id/nav_export"
             android:icon="@drawable/ic_nav_export"
             android:title="@string/menu_export" />
+        <item
+            android:id="@+id/nav_transfer"
+            android:icon="@drawable/ic_nav_transfer"
+            android:title="@string/menu_transfer" />
     </group>
 </menu>

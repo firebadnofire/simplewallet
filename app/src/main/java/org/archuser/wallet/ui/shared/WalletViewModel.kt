@@ -18,6 +18,14 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
         val DENOMINATIONS = WalletConfig.DENOMINATIONS
     }
 
+    enum class TransferResult {
+        SUCCESS,
+        SAME_WALLET,
+        EMPTY_TRANSFER,
+        INSUFFICIENT_FUNDS,
+        UNKNOWN_WALLET,
+    }
+
     private var store: WalletStore = repository.loadStore()
 
     private val _wallets = MutableLiveData(store.wallets)
@@ -31,6 +39,10 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
 
     private val _selectedWalletName = MutableLiveData(currentWallet().name)
     val selectedWalletName: LiveData<String> = _selectedWalletName
+
+    fun getWallet(walletId: String?): WalletRecord? {
+        return store.wallets.firstOrNull { it.id == walletId }
+    }
 
     fun selectWallet(walletId: String): Boolean {
         if (store.wallets.none { it.id == walletId }) {
@@ -122,6 +134,51 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
     fun totalAmount(counts: List<Int>? = null): Int {
         val values = counts ?: currentWallet().counts
         return values.zip(DENOMINATIONS) { count, denomination -> count * denomination }.sum()
+    }
+
+    fun transferFunds(fromWalletId: String, toWalletId: String, transferCounts: List<Int>): TransferResult {
+        if (fromWalletId == toWalletId) {
+            return TransferResult.SAME_WALLET
+        }
+
+        val fromWallet = getWallet(fromWalletId) ?: return TransferResult.UNKNOWN_WALLET
+        val toWallet = getWallet(toWalletId) ?: return TransferResult.UNKNOWN_WALLET
+        val normalizedTransferCounts = DENOMINATIONS.indices.map { index ->
+            transferCounts.getOrNull(index)?.coerceAtLeast(0) ?: 0
+        }
+
+        if (normalizedTransferCounts.none { it > 0 }) {
+            return TransferResult.EMPTY_TRANSFER
+        }
+
+        if (normalizedTransferCounts.indices.any { index ->
+                normalizedTransferCounts[index] > fromWallet.counts[index]
+            }) {
+            return TransferResult.INSUFFICIENT_FUNDS
+        }
+
+        val updatedFromWallet = fromWallet.copy(
+            counts = fromWallet.counts.indices.map { index ->
+                fromWallet.counts[index] - normalizedTransferCounts[index]
+            }
+        )
+        val updatedToWallet = toWallet.copy(
+            counts = toWallet.counts.indices.map { index ->
+                toWallet.counts[index] + normalizedTransferCounts[index]
+            }
+        )
+
+        store = store.copy(
+            wallets = store.wallets.map { wallet ->
+                when (wallet.id) {
+                    updatedFromWallet.id -> updatedFromWallet
+                    updatedToWallet.id -> updatedToWallet
+                    else -> wallet
+                }
+            }
+        )
+        persistStore()
+        return TransferResult.SUCCESS
     }
 
     private fun mutateCurrentWalletCounts(transform: (MutableList<Int>) -> MutableList<Int>) {

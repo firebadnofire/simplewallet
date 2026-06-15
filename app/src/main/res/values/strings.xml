@@ -8,6 +8,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_import">Import wallets</string>
     <string name="menu_export">Export wallets</string>
+    <string name="menu_transfer">Transfer funds</string>
     <string name="menu_new_wallet">New wallet</string>
 
     <string name="reset_button">Reset wallet</string>
@@ -22,6 +23,26 @@
     <string name="denomination_label_format">$%1$d bills</string>
     <string name="denomination_value_format">Value: %1$s</string>
     <string name="quantity_with_denomination">%1$d × $%2$d</string>
+    <string name="transfer_from_title">From wallet</string>
+    <string name="transfer_to_title">To wallet</string>
+    <string name="transfer_balance_label">Current balance</string>
+    <string name="transfer_total_placeholder">Transfer total: $0.00 across 0 bills</string>
+    <string name="transfer_total_format">Transfer total: %1$s across %2$d bills</string>
+    <string name="transfer_button">Transfer</string>
+    <string name="transfer_feedback_default">Choose the source, destination, and bills to move.</string>
+    <string name="transfer_feedback_need_second_wallet">Create at least two wallets before transferring funds.</string>
+    <string name="transfer_feedback_add_success">Selected %1$s for transfer.</string>
+    <string name="transfer_feedback_remove_success">Removed %1$s from this transfer.</string>
+    <string name="transfer_feedback_remove_empty">No $%1$d bills are selected for transfer.</string>
+    <string name="transfer_feedback_insufficient">No more $%1$d bills are available in %2$s.</string>
+    <string name="transfer_feedback_same_wallet">Choose two different wallets.</string>
+    <string name="transfer_feedback_empty_selection">Select at least one bill to transfer.</string>
+    <string name="transfer_feedback_unknown_wallet">One of the wallets could not be found. Refresh the page and try again.</string>
+    <string name="transfer_feedback_success">Transferred %1$d bills worth %2$s from %3$s to %4$s.</string>
+    <string name="transfer_feedback_failed">Selected bills exceed the funds currently available.</string>
+    <string name="transfer_denomination_value_format">Transfer value: %1$s</string>
+    <string name="transfer_denomination_count_format">Selected: %1$d / Available: %2$d</string>
+    <string name="transfer_denomination_section_title">Choose bills to move</string>
     <string name="import_instructions">Import a JSON backup file to replace every wallet in the app.</string>
     <string name="import_button">Choose JSON file</string>
     <string name="import_error_invalid">Invalid wallet backup. Check the JSON file and try again.</string>

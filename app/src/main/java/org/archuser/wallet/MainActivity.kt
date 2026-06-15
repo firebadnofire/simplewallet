@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_import, R.id.nav_export),
+            setOf(R.id.nav_home, R.id.nav_import, R.id.nav_export, R.id.nav_transfer),
             drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_import,
                 R.id.nav_export,
+                R.id.nav_transfer,
                 R.id.nav_home -> {
                     navigateTo(item.itemId)
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         menu.setGroupCheckable(R.id.group_wallets, true, true)
         menu.setGroupCheckable(R.id.group_actions, true, true)
 
-        if (destinationId == R.id.nav_import || destinationId == R.id.nav_export) {
+        if (destinationId == R.id.nav_import || destinationId == R.id.nav_export || destinationId == R.id.nav_transfer) {
             walletMenuIds.keys.forEach { menu.findItem(it)?.isChecked = false }
             menu.findItem(destinationId)?.isChecked = true
             return
@@ -126,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
         menu.findItem(R.id.nav_import)?.isChecked = false
         menu.findItem(R.id.nav_export)?.isChecked = false
+        menu.findItem(R.id.nav_transfer)?.isChecked = false
         val selectedWalletId = walletViewModel.selectedWalletId.value
         val selectedMenuId = walletMenuIds.entries.firstOrNull { it.value == selectedWalletId }?.key
         if (selectedMenuId != null) {

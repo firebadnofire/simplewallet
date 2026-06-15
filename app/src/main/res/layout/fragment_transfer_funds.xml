@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.transfer.TransferFundsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/transferSummaryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/fromWalletLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transfer_from_title"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/fromWalletInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:hintEnabled="false"
+                        app:endIconMode="dropdown_menu">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/fromWalletDropdown"
+                            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/fromWalletBalanceLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/transfer_balance_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                    <TextView
+                        android:id="@+id/fromWalletAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        tools:text="$0.00" />
+
+                    <TextView
+                        android:id="@+id/fromWalletBills"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        tools:text="0 bills" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/wallet_divider" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/toWalletLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transfer_to_title"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/toWalletInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:hintEnabled="false"
+                        app:endIconMode="dropdown_menu">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/toWalletDropdown"
+                            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/toWalletBalanceLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/transfer_balance_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                    <TextView
+                        android:id="@+id/toWalletAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        tools:text="$0.00" />
+
+                    <TextView
+                        android:id="@+id/toWalletBills"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        tools:text="0 bills" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/transferFeedbackMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_feedback_message"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:text="@string/transfer_feedback_default"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            tools:text="Choose the source, destination, and bills to move." />
+
+        <TextView
+            android:id="@+id/transferSelectionSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/transfer_total_placeholder"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            tools:text="Transfer total: $0.00 across 0 bills" />
+
+        <TextView
+            android:id="@+id/denominationSectionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/transfer_denomination_section_title"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/wallet_divider" />
+
+        <LinearLayout
+            android:id="@+id/denominationList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/transferButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/transfer_button" />
+    </LinearLayout>
+</ScrollView>
